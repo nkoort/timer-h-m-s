@@ -80,17 +80,17 @@ window.addEventListener('DOMContentLoaded', function(){
                     hours.textContent = '0' + t.hours;
                 } else {
                     hours.textContent = t.hours;
-                }
+                };
                 if (minutes.textContent.length == 1) {
                     minutes.textContent = '0' + t.minutes;
                 } else {
                     minutes.textContent = t.minutes;
-                }
+                };
                 if (seconds.textContent.length == 1) {
                     seconds.textContent = '0' + t.second;
                 } else {
                     seconds.textContent = t.second;
-                }
+                };
             }
 
             
