@@ -21,7 +21,6 @@ window.addEventListener('DOMContentLoaded', function(){
             tabConcent[b].classList.add('show');
         }
     };
-
     info.addEventListener('click', function(event) {
         let target = event.target; //отображает тот элемент на котоырй было произведено нажатие.
         if (target && target.classList.contains('info-header-tab')) { //Проверяется точно ли мы наали на конкретный элемент в нашем родителе.
@@ -34,11 +33,9 @@ window.addEventListener('DOMContentLoaded', function(){
             }
         }
     });
-
-
     // Дальше будет скрипт таймера на странице
 
-    let deadLine = '2022-02-09';
+    let deadLine = '2022-02-11';
     
     function getTimeRemaining(endtime) {
         let t = Date.parse(endtime) - Date.parse(new Date()),
@@ -97,6 +94,45 @@ window.addEventListener('DOMContentLoaded', function(){
         };
     };
     setClock('timer', deadLine);
+
+
+    //Модальное окно формы обратной связи под таймером
+
+    let more = document.querySelector('.more'),
+        overlay = document.querySelector('.overlay'),
+        close = document.querySelector('.popup-close');
+        
+
+    more.addEventListener('click', function() {
+        overlay.style.display = 'block';
+        this.classList.add('more-splash');
+        document.body.style.overflow = 'hidden';
+    });
+    close.addEventListener('click', function() {
+        overlay.style.display = 'none';
+        more.classList.remove('more-splash');
+        document.body.style.overflow = '';
+    });
+    
+    //Модальное окно формы обратной связи в блоках с контентом
+    let descriptionBtn = document.querySelectorAll('.description-btn');
+    //Работает независимо от количества блоков и кнопок переключения между блоками контента
+    // С помощью цикла модуль сам понимает в какой кнопке необходимо добавить соответсвующий класс
+    // Затем благодаря тому же циклу, понимает у какой кнопки необходимо удалить этот самый класс.
+    
+    for (let i = 0; i < descriptionBtn.length; i++) {
+        descriptionBtn[i].addEventListener('click', function(event) {
+            overlay.style.display = 'block';
+            this.classList.add('more-splash');
+            document.body.style.overflow = 'hidden';
+
+            close.addEventListener('click', function() {
+                overlay.style.display = 'none';
+                document.body.style.overflow = '';
+                descriptionBtn[i].classList.remove('more-splash');
+            });
+        });
+    };
 
 });
 
