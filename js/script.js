@@ -35,7 +35,7 @@ window.addEventListener('DOMContentLoaded', function(){
     });
     // Дальше будет скрипт таймера на странице
 
-    let deadLine = '2022-02-11';
+    let deadLine = '2022-03-11';
     
     function getTimeRemaining(endtime) {
         let t = Date.parse(endtime) - Date.parse(new Date()),
@@ -133,6 +133,72 @@ window.addEventListener('DOMContentLoaded', function(){
             });
         });
     };
+
+
+
+    class Options {
+        constructor (height, width, bg, fontSize, textAlign, classElem) {
+            this.height = height;
+            this.width = width;
+            this.bg = bg;
+            this.fontSize = fontSize;
+            this.textAlign = textAlign;
+            this.classElem = classElem
+        }
+        createDiv (fontSize, textAlign) {
+            let newElem = document.createElement('div');
+            document.body.appendChild(newElem);
+            let param = `height:${this.height}px; width:${this.width}px; background:${this.bg}; font-size:${this.fontSize}px; text-align:${this.textAlign};`;
+            newElem.style.cssText = param;
+            newElem.classList.add(`${this.classElem}`);
+        }
+        // addText (text) {
+        //     let elem = document.querySelector(`.${this.classElem}`);
+        //     elem.textContent = text;
+        // }  //Добавил ради практики. Создаёт отдельный метод, который позволяет передавать произвольный текст в созданный блок.
+    }
+
+    const item = new Options(500, 500, 'red', 20, 'center', 'classTest');
+    item.createDiv();
+
+    // function addInput () { // Функция создающая инпут на нашей странице и добавляющиая к нему необходимый нам класс.
+    //     let addInput = document.createElement('input');
+    //     document.body.appendChild(addInput);
+    //     addInput.classList.add('inputTest');
+    // };
+    // addInput(); //вызов функции создания класса
+    // let valueInput = document.querySelector('.inputTest'); // получение нашего созданного инпута.
+    // valueInput.addEventListener('input', function() { //обработчиик событий, который тслеживает наш инпут, и при вводе в него данных, сразу записывает их в наш блок.
+    //     item.addText(valueInput.value);
+    // }); 
+
+
+    let message = {
+        loading: 'Загрузка.....',
+        success: 'Спасибо за заявку, с вами скоро свяжутся',
+        failure: 'Что-то пошло не так...'
+    };
+
+    let form = document.querySelector('.main-form'),
+        input = form.getElementsByTagName('input'),
+        statusMessage = document.createElement('div');
+
+    statusMessage.classList.add('status');
+
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        form.appendChild(statusMessage);
+
+        let request = new XMLHttpRequest();
+
+        request.open('POST', 'server.php');
+        request.setRequestHeader ('Content-type', 'application/x-www-form-urlencoded');
+
+        let formData = new FormData(form);
+        request.send(formData);
+
+    });
 
 });
 
