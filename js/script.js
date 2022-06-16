@@ -35,7 +35,7 @@ window.addEventListener('DOMContentLoaded', function(){
     });
     // Дальше будет скрипт таймера на странице
 
-    let deadLine = '2022-03-11';
+    let deadLine = '2023-03-11';
     
     function getTimeRemaining(endtime) {
         let t = Date.parse(endtime) - Date.parse(new Date()),
